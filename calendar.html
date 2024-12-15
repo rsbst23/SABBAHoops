@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SABBA Events Calendar</title>
+	
+	<!-- Latest compiled and minified CSS -->
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+	<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+
+    <!-- jQuery -->
+	<style>
+		.calendar-header {
+			text-align: center;
+			font-family: poppins-semibold, poppins, sans-serif;
+			color: #002e5d;
+			font-size: 50px;
+			font-weight: 600;
+		}
+		.today {
+			background-color: #487fb7;
+			font-family: poppins-semibold, poppins, sans-serif;
+			border: #487fb7 solid 1px;
+			color: #fff;
+			border-radius: 30px;
+			padding: 10px 20px 10px 20px;
+		}
+		.nav-btn {
+			width: 50px;
+			height: 50px;
+			background-color: #487fb7;
+			border: #487fb7 solid 1px;
+		}
+		.toastui-calendar-grid-selection {
+			z-index: -999;
+		}
+
+	</style>
+</head>
+<body>
+		<header class="header">
+			<div class="calendar-header"><span class="navbar--range"></span></div>
+
+			<nav class="navbar">				
+				<div class="d-flex gap-2">
+					<span class="today">Today</span>
+
+					<!-- Left Arrow Button -->
+					<button class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center p-0 prev nav-btn">
+						<i class="bi bi-arrow-left"></i>
+					</button>
+
+					<!-- Right Arrow Button -->
+					<button class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center p-0 next nav-btn">
+						<i class="bi bi-arrow-right"></i>
+					</button>
+				</div>
+			</nav>
+		</header>
+	  
+      <main id="app" style="width: 100%; height: 1000px; border: #e5e5e5 solid 1px;"></main>
+				
+    <!-- Initialize the Calendar with jQuery -->
+    <script>
+		var cal = null;
+		
+		//var testData = {"currentPage":0,"items":[{"subtitle":"This is placeholder text. To change this content, double-click on the element and click Change Content.","startTime":"02:00:00.000","endDate":"2024-11-30","link-items-all":"/items/","calendarDisplay":"1","image":"wix:image://v1/fc7570_ae9913d461894a7ebb7fc420d828ab83~mv2.png/Image-empty-state.png#originWidth=1920&originHeight=1080","_id":"67628c1a-48a6-4526-a5e5-9499c037e32d","_owner":"bf135f6c-2721-4122-95cd-919a8d53358f","_createdDate":"2024-12-04T21:28:53.025Z","altText":"Placeholder Image","_updatedDate":"2024-12-09T00:55:26.456Z","endTime":"02:00:00.000","date":"2024-11-01","link-sabbaevents-title":"/sabbaevents/registration","link-items-title":"/items/seasonregistration","title":"Registration","itemPageText":"This is placeholder text. To change this content, double-click on the element and click Change Content. Want to view and manage all your collections? Click on the Content Manager button in the Add panel on the left. Here, you can make changes to your content, add new fields, create dynamic pages and more. You can create as many collections as you need.\\n\\nYour collection is already set up for you with fields and content. Add your own, or import content from a CSV file. Add fields for any type of content you want to display, such as rich text, images, videos and more. You can also collect and store information from your site visitors using input elements like custom forms and fields.\\n\\nBe sure to click Sync after making changes in a collection, so visitors can see your newest content on your live site. Preview your site to check that all your elements are displaying content from the right collection fields. ","link-sabbaevents-all":"/sabbaevents/"},{"subtitle":"This is placeholder text. To change this content, double-click on the element and click Change Content.","startTime":"16:00:00.000","endDate":"2000-01-01","link-items-all":"/items/","calendarDisplay":"1","url":"https://sabbahoops.wixsite.com/shaler-area-basketba/items/pictures","image":"wix:image://v1/fc7570_ae9913d461894a7ebb7fc420d828ab83~mv2.png/Image-empty-state.png#originWidth=1920&originHeight=1080","_id":"b5598971-7cc2-4892-817f-c0a612806dcf","_owner":"bf135f6c-2721-4122-95cd-919a8d53358f","_createdDate":"2024-12-04T15:47:12.604Z","altText":"Placeholder Image","_updatedDate":"2024-12-09T02:24:24.693Z","endTime":"19:00:00.000","date":"2024-12-13","link-sabbaevents-title":"/sabbaevents/pictures","link-items-title":"/items/pictures","title":"Pictures","itemPageText":"This is placeholder text. To change this content, double-click on the element and click Change Content. Want to view and manage all your collections? Click on the Content Manager button in the Add panel on the left. Here, you can make changes to your content, add new fields, create dynamic pages and more. You can create as many collections as you need.\\n\\nYour collection is already set up for you with fields and content. Add your own, or import content from a CSV file. Add fields for any type of content you want to display, such as rich text, images, videos and more. You can also collect and store information from your site visitors using input elements like custom forms and fields.\\n\\nBe sure to click Sync after making changes in a collection, so visitors can see your newest content on your live site. Preview your site to check that all your elements are displaying content from the right collection fields. ","link-sabbaevents-all":"/sabbaevents/"},{"subtitle":"This is placeholder text. To change this content, double-click on the element and click Change Content.","startTime":"02:00:00.000","endDate":"2024-11-09","link-items-all":"/items/","calendarDisplay":"1","image":"wix:image://v1/fc7570_ae9913d461894a7ebb7fc420d828ab83~mv2.png/Image-empty-state.png#originWidth=1920&originHeight=1080","_id":"8bf29812-10e6-4c27-ae1f-9164d49353f5","_owner":"bf135f6c-2721-4122-95cd-919a8d53358f","_createdDate":"2024-12-04T15:47:02.706Z","altText":"Placeholder Image","_updatedDate":"2024-12-09T00:55:31.647Z","endTime":"02:00:00.000","date":"2024-11-07","link-sabbaevents-title":"/sabbaevents/dick's-coupon","link-items-title":"/items/dick's-coupon","title":"Dick's Coupon","itemPageText":"This is placeholder text. To change this content, double-click on the element and click Change Content. Want to view and manage all your collections? Click on the Content Manager button in the Add panel on the left. Here, you can make changes to your content, add new fields, create dynamic pages and more. You can create as many collections as you need.\\n\\nYour collection is already set up for you with fields and content. Add your own, or import content from a CSV file. Add fields for any type of content you want to display, such as rich text, images, videos and more. You can also collect and store information from your site visitors using input elements like custom forms and fields.\\n\\nBe sure to click Sync after making changes in a collection, so visitors can see your newest content on your live site. Preview your site to check that all your elements are displaying content from the right collection fields. ","link-sabbaevents-all":"/sabbaevents/"},{"subtitle":"This is placeholder text. To change this content, double-click on the element and click Change Content.","startTime":"09:00:00.000","endDate":"2000-01-01","link-items-all":"/items/","calendarDisplay":"1","image":"wix:image://v1/fc7570_ae9913d461894a7ebb7fc420d828ab83~mv2.png/Image-empty-state.png#originWidth=1920&originHeight=1080","_id":"b1aebdf3-b199-4a87-ac2c-46e23cf086aa","_owner":"bf135f6c-2721-4122-95cd-919a8d53358f","_createdDate":"2024-12-04T15:46:11.656Z","altText":"Placeholder Image","_updatedDate":"2024-12-09T00:55:24.441Z","endTime":"03:00:00.000","date":"2024-10-19","link-sabbaevents-title":"/sabbaevents/little-dribblers","link-items-title":"/items/little-dribblers","title":"Little Dribblers","itemPageText":"This is placeholder text. To change this content, double-click on the element and click Change Content. Want to view and manage all your collections? Click on the Content Manager button in the Add panel on the left. Here, you can make changes to your content, add new fields, create dynamic pages and more. You can create as many collections as you need.\\n\\nYour collection is already set up for you with fields and content. Add your own, or import content from a CSV file. Add fields for any type of content you want to display, such as rich text, images, videos and more. You can also collect and store information from your site visitors using input elements like custom forms and fields.\\n\\nBe sure to click Sync after making changes in a collection, so visitors can see your newest content on your live site. Preview your site to check that all your elements are displaying content from the right collection fields. ","link-sabbaevents-all":"/sabbaevents/"},{"subtitle":"This is placeholder text. To change this content, double-click on the element and click Change Content.","startTime":"02:00:00.000","endDate":"2024-12-16","link-items-all":"/items/","calendarDisplay":"2","image":"wix:image://v1/fc7570_ae9913d461894a7ebb7fc420d828ab83~mv2.png/Image-empty-state.png#originWidth=1920&originHeight=1080","_id":"d9cebae7-afc7-4b37-8ca5-42bb67795af6","_owner":"bf135f6c-2721-4122-95cd-919a8d53358f","_createdDate":"2024-12-04T15:46:06.644Z","altText":"Placeholder Image","_updatedDate":"2024-12-09T00:55:10.269Z","endTime":"02:00:00.000","date":"2024-09-16","link-sabbaevents-title":"/sabbaevents/game-day-brocure","link-items-title":"/items/game-day-brocure","title":"Game Day Brocure","itemPageText":"This is placeholder text. To change this content, double-click on the element and click Change Content. Want to view and manage all your collections? Click on the Content Manager button in the Add panel on the left. Here, you can make changes to your content, add new fields, create dynamic pages and more. You can create as many collections as you need.\\n\\nYour collection is already set up for you with fields and content. Add your own, or import content from a CSV file. Add fields for any type of content you want to display, such as rich text, images, videos and more. You can also collect and store information from your site visitors using input elements like custom forms and fields.\\n\\nBe sure to click Sync after making changes in a collection, so visitors can see your newest content on your live site. Preview your site to check that all your elements are displaying content from the right collection fields. ","link-sabbaevents-all":"/sabbaevents/"},{"subtitle":"This is placeholder text. To change this content, double-click on the element and click Change Content.","startTime":"02:00:00.000","endDate":"2024-10-16","link-items-all":"/items/","calendarDisplay":"1","image":"wix:image://v1/fc7570_ae9913d461894a7ebb7fc420d828ab83~mv2.png/Image-empty-state.png#originWidth=1920&originHeight=1080","_id":"b8f3d2d4-fb7b-4c4c-a499-fbcb3577fba2","_owner":"bf135f6c-2721-4122-95cd-919a8d53358f","_createdDate":"2024-12-04T15:45:18.139Z","altText":"Placeholder Image","_updatedDate":"2024-12-09T00:55:21.071Z","endTime":"02:00:00.000","date":"2024-09-26","link-sabbaevents-title":"/sabbaevents/hoagie-sale","link-items-title":"/items/hoagie-sale","title":"Hoagie Sale","itemPageText":"This is placeholder text. To change this content, double-click on the element and click Change Content. Want to view and manage all your collections? Click on the Content Manager button in the Add panel on the left. Here, you can make changes to your content, add new fields, create dynamic pages and more. You can create as many collections as you need.\\n\\nYour collection is already set up for you with fields and content. Add your own, or import content from a CSV file. Add fields for any type of content you want to display, such as rich text, images, videos and more. You can also collect and store information from your site visitors using input elements like custom forms and fields.\\n\\nBe sure to click Sync after making changes in a collection, so visitors can see your newest content on your live site. Preview your site to check that all your elements are displaying content from the right collection fields. ","link-sabbaevents-all":"/sabbaevents/"},{"subtitle":"This is placeholder text. To change this content, double-click on the element and click Change Content.","startTime":"09:00:00.000","endDate":"2000-01-01","link-items-all":"/items/","calendarDisplay":"1","image":"wix:image://v1/fc7570_ae9913d461894a7ebb7fc420d828ab83~mv2.png/Image-empty-state.png#originWidth=1920&originHeight=1080","_id":"00000000-0000-0000-0000-000000000003","_owner":"bf135f6c-2721-4122-95cd-919a8d53358f","_createdDate":"2024-12-04T15:41:28.816Z","altText":"Placeholder Image","_updatedDate":"2024-12-09T00:55:16.377Z","endTime":"15:00:00.000","date":"2024-09-16","link-sabbaevents-title":"/sabbaevents/homecoming","link-items-title":"/items/this-is-a-title-03","title":"Homecoming","itemPageText":"This is placeholder text. To change this content, double-click on the element and click Change Content. Want to view and manage all your collections? Click on the Content Manager button in the Add panel on the left. Here, you can make changes to your content, add new fields, create dynamic pages and more. You can create as many collections as you need.\\n\\nYour collection is already set up for you with fields and content. Add your own, or import content from a CSV file. Add fields for any type of content you want to display, such as rich text, images, videos and more. You can also collect and store information from your site visitors using input elements like custom forms and fields.\\n\\nBe sure to click Sync after making changes in a collection, so visitors can see your newest content on your live site. Preview your site to check that all your elements are displaying content from the right collection fields. ","link-sabbaevents-all":"/sabbaevents/"},{"subtitle":"This is placeholder text. To change this content, double-click on the element and click Change Content.","startTime":"02:00:00.000","endDate":"2024-12-02","link-items-all":"/items/","calendarDisplay":"1","image":"wix:image://v1/fc7570_ae9913d461894a7ebb7fc420d828ab83~mv2.png/Image-empty-state.png#originWidth=1920&originHeight=1080","_id":"00000000-0000-0000-0000-000000000002","_owner":"bf135f6c-2721-4122-95cd-919a8d53358f","_createdDate":"2024-12-04T15:41:28.815Z","altText":"Placeholder Image","_updatedDate":"2024-12-09T00:55:18.485Z","endTime":"02:00:00.000","date":"2024-09-16","link-sabbaevents-title":"/sabbaevents/pizza-raffle-tickets","link-items-title":"/items/this-is-a-title-02","title":"Pizza Raffle Tickets","itemPageText":"This is placeholder text. To change this content, double-click on the element and click Change Content. Want to view and manage all your collections? Click on the Content Manager button in the Add panel on the left. Here, you can make changes to your content, add new fields, create dynamic pages and more. You can create as many collections as you need.\\n\\nYour collection is already set up for you with fields and content. Add your own, or import content from a CSV file. Add fields for any type of content you want to display, such as rich text, images, videos and more. You can also collect and store information from your site visitors using input elements like custom forms and fields.\\n\\nBe sure to click Sync after making changes in a collection, so visitors can see your newest content on your live site. Preview your site to check that all your elements are displaying content from the right collection fields. ","link-sabbaevents-all":"/sabbaevents/"},{"subtitle":"This is placeholder text. To change this content, double-click on the element and click Change Content.","startTime":"02:00:00.000","endDate":"2000-01-01","link-items-all":"/items/","calendarDisplay":"1","image":"wix:image://v1/fc7570_ae9913d461894a7ebb7fc420d828ab83~mv2.png/Image-empty-state.png#originWidth=1920&originHeight=1080","_id":"00000000-0000-0000-0000-000000000001","_owner":"bf135f6c-2721-4122-95cd-919a8d53358f","_createdDate":"2024-12-04T15:41:28.814Z","altText":"Placeholder Image","_updatedDate":"2024-12-09T00:55:12.141Z","endTime":"02:00:00.000","date":"2024-09-16","link-sabbaevents-title":"/sabbaevents/boys-shootout","link-items-title":"/items/this-is-a-title-01","title":"Boys Shootout","itemPageText":"This is placeholder text. To change this content, double-click on the element and click Change Content. Want to view and manage all your collections? Click on the Content Manager button in the Add panel on the left. Here, you can make changes to your content, add new fields, create dynamic pages and more. You can create as many collections as you need.\\n\\nYour collection is already set up for you with fields and content. Add your own, or import content from a CSV file. Add fields for any type of content you want to display, such as rich text, images, videos and more. You can also collect and store information from your site visitors using input elements like custom forms and fields.\\n\\nBe sure to click Sync after making changes in a collection, so visitors can see your newest content on your live site. Preview your site to check that all your elements are displaying content from the right collection fields. ","link-sabbaevents-all":"/sabbaevents/"}],"length":9,"partialIncludes":false,"query":{"invalidArguments":[],"filterTree":{},"encoder":{},"validateCollectionName":true,"provider":{"cloudDataUrl":"https://sabbahoops.wixsite.com/shaler-area-basketba/_api/cloud-data","gridAppId":"b97129e5-8aaa-445c-b2dc-fb3cb716b47b","environment":"LIVE","authHeader":{}},"collectionName":"Items","skipNumber":0,"included":[],"projectedFields":[]},"totalCount":9,"totalPages":1};
+		
+		//testData = {"currentPage":0,"items":[{"subtitle":"This is placeholder text. To change this content, double-click on the element and click Change Content.","startTime":"02:00:00.000","endDate":"2024-12-16","link-items-all":"/items/","calendarDisplay":"2","image":"wix:image://v1/fc7570_ae9913d461894a7ebb7fc420d828ab83~mv2.png/Image-empty-state.png#originWidth=1920&originHeight=1080","_id":"d9cebae7-afc7-4b37-8ca5-42bb67795af6","_owner":"bf135f6c-2721-4122-95cd-919a8d53358f","_createdDate":"2024-12-04T15:46:06.644Z","altText":"Placeholder Image","_updatedDate":"2024-12-09T00:55:10.269Z","endTime":"02:00:00.000","date":"2024-09-16","link-sabbaevents-title":"/sabbaevents/game-day-brocure","link-items-title":"/items/game-day-brocure","title":"Game Day Brocure","itemPageText":"This is placeholder text. To change this content, double-click on the element and click Change Content. Want to view and manage all your collections? Click on the Content Manager button in the Add panel on the left. Here, you can make changes to your content, add new fields, create dynamic pages and more. You can create as many collections as you need.\\n\\nYour collection is already set up for you with fields and content. Add your own, or import content from a CSV file. Add fields for any type of content you want to display, such as rich text, images, videos and more. You can also collect and store information from your site visitors using input elements like custom forms and fields.\\n\\nBe sure to click Sync after making changes in a collection, so visitors can see your newest content on your live site. Preview your site to check that all your elements are displaying content from the right collection fields. ","link-sabbaevents-all":"/sabbaevents/"}],"length":9,"partialIncludes":false,"query":{"invalidArguments":[],"filterTree":{},"encoder":{},"validateCollectionName":true,"provider":{"cloudDataUrl":"https://sabbahoops.wixsite.com/shaler-area-basketba/_api/cloud-data","gridAppId":"b97129e5-8aaa-445c-b2dc-fb3cb716b47b","environment":"LIVE","authHeader":{}},"collectionName":"Items","skipNumber":0,"included":[],"projectedFields":[]},"totalCount":9,"totalPages":1};
+		
+        $(document).ready(function () {
+			window.parent.postMessage("getCalendarEvents", "https://sabbahoops.wixsite.com/");
+			
+			//loadCalendar(testData.items);
+		});
+		
+		window.addEventListener("message", (event) => {	
+			var eventData = JSON.parse(event.data);
+			
+			var events = eventData.items;
+			
+			loadCalendar(events);
+		});
+		
+		function loadCalendar(events) {
+			const newEvents = [];
+			
+			events.forEach(event => {
+				if (event.endDate === '2000-01-01') {
+					event.endDate = event.date;
+				}
+			
+				if (event.calendarDisplay === "1") {
+					// Add the event as it is
+					newEvents.push(event);
+				} else if (event.calendarDisplay === "2") {
+					// Create two separate events
+
+					// First event
+					const firstEvent = {
+						...event,
+						title: event.title + ' - Begins',
+						date: event.date,
+						endDate: event.date,
+						startTime: '02:00:00.000',
+						endTime: '02:00:00.000'
+					};
+
+					// Second event
+					const secondEvent = {
+						...event,
+						title: event.title + ' - Ends',
+						date: event.endDate,
+						endDate: event.endDate,
+						startTime: '02:00:00.000',
+						endTime: '02:00:00.000'
+					};
+
+					// Add both events to newEvents array
+					newEvents.push(firstEvent, secondEvent);
+				}
+			});
+			
+			const calendarEvents = newEvents.map((event, index) => {
+				const isAllDay = event.startTime === "02:00:00.000" && event.endTime === "02:00:00.000";
+				
+				event.customIsAllDay = isAllDay;
+				event.customStart = `${event.date}T${event.startTime}`;
+				event.customEnd = `${event.endDate}T${event.endTime}`;
+				
+				var eventColor = '#487fb7';
+				
+				if (event.eventType === 2){
+					eventColor = '#002e5d';
+				} else if (event.eventType === 3) {
+					eventColor = '#af1d28';
+				}
+
+				return { 
+					id: String(index), // Use the index as a unique ID 
+					calendarId: "1",   // Default calendar ID 
+					title: event.title, 
+					category: "allday", // Set category based on event type 
+					start: `${event.date}T${event.startTime}`, 
+					end: isAllDay ? event.endDate : `${event.endDate}T${event.endTime}`, // Use date for all-day events 
+					color: '#fff',
+					backgroundColor: eventColor,
+					body: event.subtitle,
+					location: event.url,
+					customIsAllDay: isAllDay,
+					raw: event
+				 }; 
+			});
+			
+			var Calendar = window.tui.Calendar;
+
+			cal = new Calendar('#app', {
+				defaultView: 'month',
+				// NOTE: Not every theme is not included. For more info, check the theme docs.
+				theme: {
+					month: {
+						dayName: {
+							borderLeft: 'none',
+							backgroundColor: 'rgba(51, 51, 51, 0.4)',
+						},
+						moreView: {
+							border: '1px solid grey',
+							boxShadow: '0 2px 6px 0 grey',
+							backgroundColor: 'white',
+							width: 320,
+							height: 200,
+						},
+						gridCell: {
+							footerHeight: 31,
+						}
+					}
+				},
+				month: {
+					scheduleHeight: 30, // Customize the height of each schedule
+					visibleScheduleCount: 3 // Limit the number of visible schedules before "More"
+				}
+			});
+		
+			// Add events to the calendar
+			cal.createEvents(calendarEvents); 
+		
+			updateNavbarRange();
+			
+			cal.on('clickEvent', function (event) {			
+				const schedule = event.event;
+
+				// Remove any existing popovers
+				document.querySelectorAll('.popover').forEach(popover => popover.remove());
+				
+				var startDate = schedule.start.d.d.toLocaleString('en-US', {
+						year: 'numeric',
+						month: 'short',
+						// Short month name like "Sep"
+						day: '2-digit'// Two-digit day
+					});
+						
+				const startDateTime = new Date(schedule.raw.customStart);
+
+				var startTime = startDateTime.toLocaleTimeString('en-US', {
+						hour: 'numeric', // Display the hour
+						minute: '2-digit', // Display the minutes (if needed)
+						hour12: true // Use 12-hour format
+					});
+					
+				var endDate = schedule.end.d.d.toLocaleString('en-US', {
+						year: 'numeric',
+						month: 'short',
+						// Short month name like "Sep"
+						day: '2-digit'// Two-digit day
+					});
+					
+				const endDateTime = new Date(schedule.raw.customEnd);
+
+				var endTime = endDateTime.toLocaleTimeString('en-US', {
+						hour: 'numeric', // Display the hour
+						minute: '2-digit', // Display the minutes (if needed)
+						hour12: true // Use 12-hour format
+					});
+				
+				var body = ``;
+				
+				if (schedule.raw.customIsAllDay)
+				{
+					if (schedule.raw.customStart === schedule.raw.customEnd) {
+						body = `<p><strong>Date:</strong> ${startDate}</p>`;
+						//body += `<p><strong>End:</strong> ${endDate}</p>`
+					} else {
+						body = `<p><strong>Start:</strong> ${startDate}</p>`;
+						body += `<p><strong>End:</strong> ${endDate}</p>`
+					}					
+				} else {
+					body = `<p><strong>Date:</strong> ${startDate}</p>`;
+					
+					if (startTime) {
+						body += `<p><strong>Time:</strong> ${startTime}-${endTime}</p>`;
+					}
+				}
+				
+				body += `<p><strong>Description:</strong> ${schedule.body || 'No description provided'}</p>`;
+				body += `<a class='moreDetailsLnk' href="${schedule.location || '#'}" onclick="handleRedirect(); return false;">More Details</a>`;
+
+				// Create a new popover dynamically
+				const popoverElement = document.createElement('div');
+				popoverElement.setAttribute('id', 'calendarPopover');
+				popoverElement.setAttribute('data-bs-toggle', 'popover');
+				popoverElement.setAttribute('data-bs-placement', 'top');
+				popoverElement.setAttribute('title', schedule.title);
+				popoverElement.setAttribute('data-bs-html', 'true');
+				popoverElement.setAttribute(
+					'data-bs-content',
+					body
+				);
+
+				// Append the popover to the clicked event's element
+				const targetElement = event.nativeEvent.target;
+				targetElement.appendChild(popoverElement);
+
+				// Initialize the Bootstrap popover
+				const popover = new bootstrap.Popover(popoverElement, {
+					trigger: 'focus',
+					placement: 'top',
+					html: true,
+				});
+
+				// Add a click listener to the document to close the popover when clicking outside
+				setTimeout(() => {
+					document.addEventListener('click', function handleOutsideClick(e) {						
+						if (!popoverElement.contains(e.target)) {
+							popover.hide();
+							// Remove the event listener after hiding the popover
+							
+						}
+						
+						document.removeEventListener('click', handleOutsideClick);
+					});
+				}, 0);
+				
+				
+				
+				// Show the popover
+				popover.show();
+				
+				
+			});
+			
+			$(document).on('click', 'a.moreDetailsLnk', function (event) {
+				event.preventDefault(); // Prevent default anchor behavior (optional)
+				
+				// Add your click handling logic here
+				const href = $(this).attr('href'); // Get the href attribute
+				window.parent.postMessage(href, "https://sabbahoops.wixsite.com/");
+			});
+		}
+	
+		function updateNavbarRange() {
+			const currentDate = cal.getDate(); // Get the current date displayed in the calendar
+			const nativeDate = currentDate.toDate(); // Convert TZDate to Date
+			const formattedDate = nativeDate.toLocaleString('en-US', {
+				year: 'numeric',
+				month: 'long'
+			});
+			document.querySelector('.navbar--range').innerText = formattedDate;
+		}
+
+		// Add event listeners to navigation buttons
+		document.querySelector('.today').addEventListener('click', () => {
+			cal.today(); // Navigate to today
+			updateNavbarRange();
+		});
+
+		document.querySelector('.prev').addEventListener('click', () => {
+			cal.prev(); // Navigate to the previous month
+			updateNavbarRange();
+		});
+
+		document.querySelector('.next').addEventListener('click', () => {
+			cal.next(); // Navigate to the next month
+			updateNavbarRange();
+		});
+
+    </script>
+</body>
+</html>
